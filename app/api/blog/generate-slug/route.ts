@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { google } from '@ai-sdk/google';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { generateText } from 'ai';
 
 export async function POST(request: NextRequest) {
@@ -56,10 +56,13 @@ Title: "${title}"
 
 Output ONLY the slug (no explanation, no quotes, just the slug text):`;
 
+        const google = createGoogleGenerativeAI({
+            apiKey: apiKey,
+        });
+
         const { text: slug } = await generateText({
-            model: google('gemini-2.0-flash-exp', { apiKey }),
+            model: google('gemini-2.0-flash-exp'),
             prompt,
-            maxTokens: 50,
         });
 
         // 생성된 슬러그 정제

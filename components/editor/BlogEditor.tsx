@@ -106,7 +106,7 @@ export default function BlogEditor({ content, onChange, uploadFn }: BlogEditorPr
         <EditorRoot>
             <EditorContent
                 initialContent={content}
-                extensions={editorExtensions}
+                extensions={editorExtensions as any}
                 onUpdate={({ editor }) => {
                     onChange?.(editor.getJSON());
                 }}
